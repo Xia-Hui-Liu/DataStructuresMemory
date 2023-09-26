@@ -122,6 +122,52 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+
+            Queue<string> queue = new();
+
+            while (true)
+            {
+                Console.WriteLine("Using + to enqueue an item or - to dequeue an item. Type 'exit' to quit: ");
+                string ? input = Console.ReadLine();
+
+                if (input == "exit")// check if input is 'exit' then exit the program
+                    break;
+                if (string.IsNullOrEmpty(input))// check input is null 
+                {
+                    Console.WriteLine("Invalid input. Please use + to enqueue an item or - to dequeue an item.");
+                    continue;
+                }
+                
+                char nav = input[0];
+                string value = input[1..];// using range operator to create substring start from index 1
+
+                 switch(nav)
+                {
+                    case '+':
+                        queue.Enqueue(value);// enqueue item with input value
+                        break;
+                    case '-':
+                        if (queue.Count > 0)// check if the queue is empty
+                            queue.Dequeue(); // dequeue item from the queue
+                        else
+                        {
+                            Console.WriteLine("Queue is empty.");
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Please only using + or - ");
+                        break;
+                }
+                PrintQueue(queue);// call the fuction PrintQueue to print out every item after Enqueued and Dequeued
+            }       
+        }
+
+        private static void PrintQueue(Queue<string> queue)
+        {
+            foreach (string item in queue)
+            {
+                Console.WriteLine(item);
+            }
         }
 
         /// <summary>
