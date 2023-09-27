@@ -128,46 +128,36 @@ namespace SkalProj_Datastrukturer_Minne
             while (true)
             {
                 Console.WriteLine("Using + to enqueue an item or - to dequeue an item. Type 'exit' to quit: ");
-                string ? input = Console.ReadLine();
+                var keyInfo = Console.ReadKey();
 
-                if (input == "exit")// check if input is 'exit' then exit the program
-                    break;
-                if (string.IsNullOrEmpty(input))// check input is null 
+                switch(keyInfo.KeyChar)
                 {
-                    Console.WriteLine("Invalid input. Please use + to enqueue an item or - to dequeue an item.");
-                    continue;
-                }
-                
-                char nav = input[0];
-                string value = input[1..];// using range operator to create substring start from index 1
-
-                 switch(nav)
-                {
+                    case 'e':
+                    case 'E':
+                        return;
                     case '+':
-                        queue.Enqueue(value);// enqueue item with input value
+                        Console.WriteLine("\nEnter value to enqueue: ");
+                        string ? value = Console.ReadLine();
+                        if(string.IsNullOrEmpty(value))
+                            Console.WriteLine("Invalid input. Using + to push an item or - to pop an item");
+                        else
+                            queue.Enqueue(value);// enqueue item with input value
+                            Console.WriteLine($"Item '{value}' has been enqueued into the queue.");
                         break;
                     case '-':
                         if (queue.Count > 0)// check if the queue is empty
-                            queue.Dequeue(); // dequeue item from the queue
+                         {
+                            var dequeuedItem = queue.Dequeue(); // dequeue item from the queue
+                            Console.WriteLine($"\nItem '{dequeuedItem}' has been dequeued into the queue.");
+                         }
                         else
-                        {
                             Console.WriteLine("Queue is empty.");
-                        }
                         break;
                     default:
                         Console.WriteLine("Please only using + or - ");
                         break;
                 }
-                PrintQueue(queue);// call the fuction PrintQueue to print out every item after Enqueued and Dequeued
             }       
-        }
-
-        private static void PrintQueue(Queue<string> queue)
-        {
-            foreach (string item in queue)
-            {
-                Console.WriteLine(item);
-            }
         }
 
         /// <summary>
@@ -180,8 +170,45 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
+            Stack<string> strings = new Stack<string>();
+
+            while(true)
+            {
+                 Console.WriteLine("Using + to push an item or - to pop an item. Type 'exit' to quit: ");
+                 
+                 var keyInfo = Console.ReadKey();
+
+                 switch(keyInfo.KeyChar)
+                 {
+                    case 'e':
+                    case 'E':
+                        return;
+                    case '+':
+                        Console.WriteLine("\nEnter value to push: ");
+                        string ? value = Console.ReadLine();
+                        if (string.IsNullOrEmpty(value))
+                            Console.WriteLine("Invalid input. Using + to push an item or - to pop an item");
+                        else
+                            strings.Push(value);
+                            Console.WriteLine($"Item '{value}' has been pushed into the stack.");
+                        break;
+                    case '-':
+                        if(strings.Count > 0)
+                        {
+                            string poppedItem = strings.Pop();
+                            Console.WriteLine($"\nItem '{poppedItem}' has been popped from the stack.");
+                        }
+                        else
+                            Console.WriteLine("Stack is empty.");
+                        break;
+                    default:
+                        Console.WriteLine("Please only using + or - ");
+                        break;
+                 }
+            }
         }
 
+     
         static void CheckParanthesis()
         {
             /*
