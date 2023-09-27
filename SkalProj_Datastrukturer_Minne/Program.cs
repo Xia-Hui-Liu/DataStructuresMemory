@@ -141,8 +141,10 @@ namespace SkalProj_Datastrukturer_Minne
                         if(string.IsNullOrEmpty(value))
                             Console.WriteLine("Invalid input. Using + to push an item or - to pop an item");
                         else
+                        {
                             queue.Enqueue(value);// enqueue item with input value
                             Console.WriteLine($"Item '{value}' has been enqueued into the queue.");
+                        }
                         break;
                     case '-':
                         if (queue.Count > 0)// check if the queue is empty
@@ -189,8 +191,10 @@ namespace SkalProj_Datastrukturer_Minne
                         if (string.IsNullOrEmpty(value))
                             Console.WriteLine("Invalid input. Using + to push an item or - to pop an item");
                         else
+                        {
                             strings.Push(value);
                             Console.WriteLine($"Item '{value}' has been pushed into the stack.");
+                        }
                         break;
                     case '-':
                         if(strings.Count > 0)
@@ -216,7 +220,7 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
-
+       
         }
 
     }
