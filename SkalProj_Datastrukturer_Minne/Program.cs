@@ -212,17 +212,42 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
-     
-        static void CheckParanthesis()
+        public static bool CheckParanthesis(string input)
         {
             /*
              * Use this method to check if the paranthesis in a string is Correct or incorrect.
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
-       
+
+            Stack<char> chars = new Stack<char>();
+
+            foreach(var c in input)// loop iterates through each character c in the input string
+            {
+                if (c == '[' || c == '{'|| c == '(')
+                {
+                    chars.Push(c);// if c is opening bracket, it will push onto stack list
+                }
+                else if (c == ']' || c == '}'|| c == ')') 
+                {
+                    // if chars.Pop() item matching closing character return true else will return false
+                    // at the end if there is no item in the stack, will return false
+                    if (chars.Count == 0 || !IsMatchingPair(chars.Pop(), c))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return chars.Count == 0;// the program will check until there is no more item in the stack
         }
 
+        private static bool IsMatchingPair(char opening, char closing)
+        {
+           return 
+           (opening == '(' && closing == ')') ||
+           (opening == '[' && closing == ']') ||
+           (opening == '{' && closing == '}');
+        }
     }
 }
 
