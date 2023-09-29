@@ -246,7 +246,7 @@ namespace SkalProj_Datastrukturer_Minne
              bool wellFormed = CheckString(input);
              
              Console.WriteLine(wellFormed);
-             Console.WriteLine("Your input is " + (wellFormed ? " well formed" : "no well formed"));
+             Console.WriteLine("Your input is " + (wellFormed ? " well formed" : "not well formed"));
              
         }
 
