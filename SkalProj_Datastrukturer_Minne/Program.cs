@@ -240,8 +240,48 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
 
-             Console.WriteLine("")
+             Console.WriteLine("Enter a string with parentheses: ");
+
+             string ? input  = Console.ReadLine();
+             bool wellFormed = CheckString(input);
              
+             Console.WriteLine(wellFormed);
+             Console.WriteLine("Your input is " + (wellFormed ? " well formed" : "no well formed"));
+             
+        }
+
+        private static bool CheckString(string? input)
+        {
+            Stack<char> chars = new Stack<char>();
+
+            if (string.IsNullOrEmpty(input))
+                throw new ArgumentException("Input cannot be null or empty.", nameof(input));
+            else
+            {
+                foreach(var c in input)
+                {
+                    if (c is '(' or '{' or '[')
+                    {
+                        chars.Push(c);
+                    }
+                    else if (c is ')' or ']' or '}')
+                    {
+                        if (chars.Count == 0 || !IsMatchingPair(chars.Pop(), c))
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+           return chars.Count == 0;
+        }
+
+        private static bool IsMatchingPair(char opeing, char closing)
+        {
+            return 
+            (opeing == '(' && closing == ')') ||
+            (opeing == '[' && closing == ']') ||
+            (opeing == '{' && closing == '}');
         }
     }
 }
