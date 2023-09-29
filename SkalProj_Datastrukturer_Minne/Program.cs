@@ -212,41 +212,60 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
-        public static bool CheckParanthesis(string input)
+        static void CheckParanthesis()
         {
             /*
              * Use this method to check if the paranthesis in a string is Correct or incorrect.
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
+             
+            string input1 = "[({})]";
+            string input2 = "List<int> list = new List<int>() { 1, 2, 3, 4 )";
+            string input3 = "List<int> list = new List<int>() { 1, 2, 3, 4 }";
+            string input4 = "{[()}]";
 
-            Stack<char> chars = new Stack<char>();
+            bool result1 = Check(input1);// call method Check() by argument input1
+            bool result2 = Check(input2);// call method Check() by argument input2
+            bool result3 = Check(input3);// call method Check() by argument input3
+            bool result4 = Check(input4);// call method Check() by argument input4
+            
+            Console.WriteLine("Example 1 is " + (result1 ? "correct" : "incorrect"));
+            Console.WriteLine("Example 2 is " + (result2 ? "correct" : "incorrect"));
+            Console.WriteLine("Example 3 is " + (result3 ? "correct" : "incorrect"));
+            Console.WriteLine("Example 4 is " + (result4 ? "correct" : "incorrect"));
 
-            foreach(var c in input)// loop iterates through each character c in the input string
+            static bool Check(string input)
             {
-                if (c == '[' || c == '{'|| c == '(')
+                Stack<char> chars = new Stack<char>();
+
+                foreach (char c in input) // loop iterates through each character c in the input string
                 {
-                    chars.Push(c);// if c is opening bracket, it will push onto stack list
-                }
-                else if (c == ']' || c == '}'|| c == ')') 
-                {
-                    // if chars.Pop() item matching closing character return true else will return false
-                    // at the end if there is no item in the stack, will return false
-                    if (chars.Count == 0 || !IsMatchingPair(chars.Pop(), c))
+                    if (c == '(' || c == '[' || c == '{')// if c is opening bracket, it will push into stack list
                     {
-                        return false;
+                        chars.Push(c);
+                    }
+                    else if (c == ')' || c == ']' || c == '}')
+                    {
+                        // if chars.Pop() item matching closing character return true else will return false
+                        // at the end if there is no item in the stack, will return false
+                        if (chars.Count == 0 || !IsMatchingPair(chars.Pop(), c))
+                        {
+                            return false;
+                        }
                     }
                 }
-            }
-            return chars.Count == 0;// the program will check until there is no more item in the stack
-        }
 
-        private static bool IsMatchingPair(char opening, char closing)
-        {
-           return 
-           (opening == '(' && closing == ')') ||
-           (opening == '[' && closing == ']') ||
-           (opening == '{' && closing == '}');
+                return chars.Count == 0;// the program will check until there is no more item in the stack
+            }
+
+            static bool IsMatchingPair(char opening, char closing)
+            {
+                return
+                    (opening == '(' && closing == ')') ||
+                    (opening == '[' && closing == ']') ||
+                    (opening == '{' && closing == '}');
+            }
         }
     }
 }
