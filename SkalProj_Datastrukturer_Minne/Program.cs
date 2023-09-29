@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Metadata;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -140,11 +141,14 @@ namespace SkalProj_Datastrukturer_Minne
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
 
-            Queue<string> queue = new();
+            Queue<string> queue = new Queue<string>();
 
             while (true)
-            {
-                Console.WriteLine("Using + to enqueue an item or - to dequeue an item. Type 'exit' to quit: ");
+            {  
+                Console.WriteLine("Welcome to ICA Queue-checkout system.");
+                Console.WriteLine("To join the queue, press '+' or press '-' to cancel:  ");
+                Console.WriteLine("Type 'exit' to quit : ");
+
                 var keyInfo = Console.ReadKey();
 
                 switch(keyInfo.KeyChar)
@@ -152,26 +156,30 @@ namespace SkalProj_Datastrukturer_Minne
                     case 'e':
                     case 'E':
                         return;
+
                     case '+':
-                        Console.WriteLine("\nEnter value to enqueue: ");
+                        Console.WriteLine("\nEnter your name: ");
                         string ? value = Console.ReadLine();
                         if(string.IsNullOrEmpty(value))
-                            Console.WriteLine("Invalid input. Using + to push an item or - to pop an item");
+                            Console.WriteLine("Invalid input. Using + to join the queue or - to cancel.");
                         else
                         {
                             queue.Enqueue(value);// enqueue item with input value
-                            Console.WriteLine($"Item '{value}' has been enqueued into the queue.");
+                            Console.WriteLine($"{value} ställer sig i kön.");
+                            Console.WriteLine($"There are { queue.Count -1 } person in front of you!");
                         }
                         break;
+
                     case '-':
                         if (queue.Count > 0)// check if the queue is empty
                          {
                             var dequeuedItem = queue.Dequeue(); // dequeue item from the queue
-                            Console.WriteLine($"\nItem '{dequeuedItem}' has been dequeued into the queue.");
+                            Console.WriteLine($"\n{dequeuedItem} has been removed from the queue.");
                          }
                         else
-                            Console.WriteLine("Queue is empty.");
+                            Console.WriteLine("ICA öppnar och kön till kassan är tom.");
                         break;
+
                     default:
                         Console.WriteLine("Please only using + or - ");
                         break;
@@ -189,44 +197,39 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
-            Stack<string> strings = new Stack<string>();
+            Console.WriteLine("Enter a text message to reverse: ");
+            string ? userInput = Console.ReadLine();
 
-            while(true)
+            string reversedString = ReverseText(userInput);
+            Console.WriteLine("Reversed string:");
+            Console.WriteLine(reversedString);
+        
+        }
+
+        private static string ReverseText(string? input)
+        {
+            if (!string.IsNullOrEmpty(input))
             {
-                 Console.WriteLine("Using + to push an item or - to pop an item. Type 'exit' to quit: ");
-                 
-                 var keyInfo = Console.ReadKey();
+                Stack<char> chars = new Stack<char>();
+                foreach(var c in input)
+                {
+                    chars.Push(c);
+                }
 
-                 switch(keyInfo.KeyChar)
-                 {
-                    case 'e':
-                    case 'E':
-                        return;
-                    case '+':
-                        Console.WriteLine("\nEnter value to push: ");
-                        string ? value = Console.ReadLine();
-                        if (string.IsNullOrEmpty(value))
-                            Console.WriteLine("Invalid input. Using + to push an item or - to pop an item");
-                        else
-                        {
-                            strings.Push(value);
-                            Console.WriteLine($"Item '{value}' has been pushed into the stack.");
-                        }
-                        break;
-                    case '-':
-                        if(strings.Count > 0)
-                        {
-                            string poppedItem = strings.Pop();
-                            Console.WriteLine($"\nItem '{poppedItem}' has been popped from the stack.");
-                        }
-                        else
-                            Console.WriteLine("Stack is empty.");
-                        break;
-                    default:
-                        Console.WriteLine("Please only using + or - ");
-                        break;
-                 }
+                char[] reversedChars = new char[input.Length];
+
+                for (var i = 0; i < input.Length; i++)
+                {
+                    reversedChars[i] = chars.Pop();
+                }
+                return new string(reversedChars);
             }
+            else 
+            {
+                Console.WriteLine("Please enter a value: ");
+                return string.Empty;
+            }
+        
         }
 
         static void CheckParanthesis()
@@ -236,53 +239,9 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
+
+             Console.WriteLine("")
              
-            string input1 = "[({})]";
-            string input2 = "List<int> list = new List<int>() { 1, 2, 3, 4 )";
-            string input3 = "List<int> list = new List<int>() { 1, 2, 3, 4 }";
-            string input4 = "{[()}]";
-
-            bool result1 = Check(input1);// call method Check() by argument input1
-            bool result2 = Check(input2);// call method Check() by argument input2
-            bool result3 = Check(input3);// call method Check() by argument input3
-            bool result4 = Check(input4);// call method Check() by argument input4
-            
-            Console.WriteLine("Example 1 is " + (result1 ? "correct" : "incorrect"));
-            Console.WriteLine("Example 2 is " + (result2 ? "correct" : "incorrect"));
-            Console.WriteLine("Example 3 is " + (result3 ? "correct" : "incorrect"));
-            Console.WriteLine("Example 4 is " + (result4 ? "correct" : "incorrect"));
-
-            static bool Check(string input)
-            {
-                Stack<char> chars = new Stack<char>();
-
-                foreach (char c in input) // loop iterates through each character c in the input string
-                {
-                    if (c == '(' || c == '[' || c == '{')// if c is opening bracket, it will push into stack list
-                    {
-                        chars.Push(c);
-                    }
-                    else if (c == ')' || c == ']' || c == '}')
-                    {
-                        // if chars.Pop() item matching closing character return true else will return false
-                        // at the end if there is no item in the stack, will return false
-                        if (chars.Count == 0 || !IsMatchingPair(chars.Pop(), c))
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-                return chars.Count == 0;// the program will check until there is no more item in the stack
-            }
-
-            static bool IsMatchingPair(char opening, char closing)
-            {
-                return
-                    (opening == '(' && closing == ')') ||
-                    (opening == '[' && closing == ']') ||
-                    (opening == '{' && closing == '}');
-            }
         }
     }
 }
