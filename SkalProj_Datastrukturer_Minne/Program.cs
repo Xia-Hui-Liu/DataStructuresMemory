@@ -71,6 +71,21 @@ namespace SkalProj_Datastrukturer_Minne
              * As a default case, tell them to use only + or -
              * Below you can see some inspirational code to begin working.
             */
+            /*
+              När ökar listans kapacitet? Med hur mycket ökar kapaciteten? 
+              Den ökar från storlek 1, men från 1 till 4 så förblir kapaciteten densamma vid 4. 
+              Från storlek 5-8 förblir kapaciteten densamma vid 8.
+              Från storlek 9-13 förblir kapaciteten densamma vid 16.
+
+              Varför ökar inte listans kapacitet i samma takt som element läggs till?
+              För att när vi lägger till element omallokerar den periodiskt en större array och kopierar de befintliga elementen till den nya arrayen.
+
+              Minskar kapaciteten när element tas bort ur listan?
+              Nej, det gör inte. Storleken ändras inte automatiskt.
+
+              När är det då fördelaktigt att använda en egendefinierad array istaället för en lista?
+              När vi vet den exakta storleken på kollektionen vi behöver och den kommer int att ändras och om vi vill minimera minneskostnader.
+             */
 
             List<string> theList = new List<string>();//initialize an empty list out side of the loop, ensures the list isn't re-initialized with each iteration
 
@@ -94,10 +109,14 @@ namespace SkalProj_Datastrukturer_Minne
                 {
                     case '+':
                         theList.Add(value);
+                        Console.WriteLine($"Count:{theList.Count}, Capacity:{theList.Capacity}");
                         break;
                     case '-':
                         if (theList.Contains(value))// check if the list contains value
+                         {  
                             theList.Remove(value);
+                            Console.WriteLine($"Count:{theList.Count}, Capacity:{theList.Capacity}");
+                         }
                         else
                         {
                             Console.WriteLine(value + " not found in the list.");
@@ -106,11 +125,9 @@ namespace SkalProj_Datastrukturer_Minne
                     default:
                         Console.WriteLine("Please only using + or - ");
                         break;
-
                 }
             }
-            Console.WriteLine($"Count:{theList.Count}, Capacity:{theList.Capacity}");// log out the number of item in the list and the capacity
-    }
+        }
 
         /// <summary>
         /// Examines the datastructure Queue
