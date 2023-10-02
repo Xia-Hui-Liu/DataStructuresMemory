@@ -14,11 +14,12 @@ namespace SkalProj_Datastrukturer_Minne
 
             while (true)
             {
-                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
+                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 , 4 , 5 , 0) of your choice"
                     + "\n1. Examine a List"
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParanthesis"
+                    + "\n5. RecursiveFunc"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -43,6 +44,9 @@ namespace SkalProj_Datastrukturer_Minne
                         break;
                     case '4':
                         CheckParanthesis();
+                        break;
+                    case '5':
+                        RecursiveFunc();
                         break;
                     /*
                      * Extend the menu to include the recursive 
@@ -282,6 +286,71 @@ namespace SkalProj_Datastrukturer_Minne
             (opeing == '(' && closing == ')') ||
             (opeing == '[' && closing == ']') ||
             (opeing == '{' && closing == '}');
+        }
+
+        private static void RecursiveFunc()
+        {
+            Console.WriteLine("1 for RecursiveEven, Press 2 for Fibonacci");
+
+             string ? input  = Console.ReadLine();
+             
+             if (!string.IsNullOrEmpty(input))
+            {   
+                Console.WriteLine("Enter a number: ");
+                string ? stringInput = Console.ReadLine();
+           
+                if (!string.IsNullOrEmpty(stringInput))
+                {
+                    int number = int.Parse(stringInput);
+
+                    switch (input)
+                    {
+                        case "1":
+                        int resultEven = RecursiveEven(number);
+                        Console.WriteLine("Result: " + resultEven);
+                        break;
+                        case "2":
+                            int resultFib = Fibonacci(number);
+                            Console.WriteLine("Result: " + resultFib);
+                            break;
+                        default:
+                            Console.WriteLine("Invalid choice.");
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Input is empty.");
+                }
+            }     
+        }
+        private static int RecursiveEven(int n)
+        {
+            if (n == 0)
+            {
+                return 0;
+            }
+            else if (n == 1)
+            {
+                return 2;
+            }
+            return RecursiveEven(n - 1) + 2;   
+        }
+
+        private static int Fibonacci(int n)
+        {
+            static int Fib(int curr, int next, int count)
+            {
+                if (count == 0)
+                {
+                    return curr;
+                }
+                else
+                {
+                    return Fib(next, curr + next, count - 1);
+                }
+            }
+            return Fib(0, 1, n);
         }
     }
 }
