@@ -9,6 +9,36 @@ namespace SkalProj_Datastrukturer_Minne
         /// The main method, vill handle the menues for the program
         /// </summary>
         /// <param name="args"></param>
+        
+        /// 1. Hur fungerar stacken och heapen? Förklara gärna med exempel eller skiss på dess grundläggande funktion
+        /// Stacken används för att hantera funktioners anrop och returneringar samt för att lagra lokala variabler inuti funktioner. Varje gång en funktion anropas, läggs dess lokala variabler och återgångsadress till stacken.
+        /// följ Last In, First Out principen
+        /// void myExample()
+        /// {
+        ///        int x = 10; // Lokal variable x läggs på stacken
+        ///        int y = 20: // Lokal variable y läggs på stacken
+        ///        int sum = x + y ; // Lokal variable sum läggs på stacken
+        /// }
+        /// Heapen används för att lagra data som måste allokeras dynamiskt under programkörning
+        /// 
+        /// void myHeapen()
+        /// {
+        ///      int p = new int();// Allokerar en ny int på heapen och returnerar dess referens
+        ///      
+        ///     delete p; // Deallokera minnet när det inte längre behövs
+        ///}
+        /// 
+        /// 2. Vad är value Types respektive Reference Types och vad skiljer dem åt?
+        /// Value Types representerar själva datavärdet, inte dess plats i minnet.Vanligtvis lagras värden av Value Types direkt i stacken.
+        /// När en Value Type variabel tilldelas en annan, kopieras det faktiska värdet.
+        /// När en Value Type skickas som argument till en funktion, skickas en kopia av värdet.
+        /// Reference Types innehåller en adress till minnet, lagras i Heapen, delar data mellan variabler.
+        /// 
+        /// 3. Följande metoder genererar olika svar. Den första returnerar 3, den andra returnerar 4, varför?
+        /// För att den första är value type, eftersom det inte ändrades efter uppdraget y = x, x fortfarande 3.
+        /// den andra är reference type.Tilldelar referensen för x till y. Det betyder att y nu pekar på samma objekt som x
+        
+
         static void Main()
         {
 
